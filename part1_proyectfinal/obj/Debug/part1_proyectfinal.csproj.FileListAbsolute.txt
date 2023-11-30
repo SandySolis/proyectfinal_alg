@@ -5,3 +5,10 @@ C:\Users\USUARIO\Source\Repos\proyectfinal_alg\part1_proyectfinal\obj\Debug\part
 C:\Users\USUARIO\Source\Repos\proyectfinal_alg\part1_proyectfinal\obj\Debug\part1_proyectfinal.csproj.CoreCompileInputs.cache
 C:\Users\USUARIO\Source\Repos\proyectfinal_alg\part1_proyectfinal\obj\Debug\part1_proyectfinal.exe
 C:\Users\USUARIO\Source\Repos\proyectfinal_alg\part1_proyectfinal\obj\Debug\part1_proyectfinal.pdb
+C:\Users\USUARIO\Source\Repos\proyectfinal_alg2\part1_proyectfinal\bin\Debug\part1_proyectfinal.exe.config
+C:\Users\USUARIO\Source\Repos\proyectfinal_alg2\part1_proyectfinal\bin\Debug\part1_proyectfinal.exe
+C:\Users\USUARIO\Source\Repos\proyectfinal_alg2\part1_proyectfinal\bin\Debug\part1_proyectfinal.pdb
+C:\Users\USUARIO\Source\Repos\proyectfinal_alg2\part1_proyectfinal\obj\Debug\part1_proyectfinal.csproj.AssemblyReference.cache
+C:\Users\USUARIO\Source\Repos\proyectfinal_alg2\part1_proyectfinal\obj\Debug\part1_proyectfinal.csproj.CoreCompileInputs.cache
+C:\Users\USUARIO\Source\Repos\proyectfinal_alg2\part1_proyectfinal\obj\Debug\part1_proyectfinal.exe
+C:\Users\USUARIO\Source\Repos\proyectfinal_alg2\part1_proyectfinal\obj\Debug\part1_proyectfinal.pdb

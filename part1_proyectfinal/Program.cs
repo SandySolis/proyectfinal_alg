@@ -184,7 +184,7 @@ namespace part1_proyectfinal
             GestionarProductos();
         }
 
-        
+
         static void GestionarAlmacenes()
         {
             Console.Clear();
@@ -283,22 +283,185 @@ namespace part1_proyectfinal
                 "| | 4. Volver al Menu Principal                      | |\n" +
                 "--------------------------------------------------------\n" +
                 "Seleccione una opcion: ");
+
+            int opcion = Convert.ToInt32(Console.ReadLine());
+            switch (opcion)
+            {
+                case 1:
+                    AgregarProductoEnAlmacen();
+                    break;
+                case 2:
+                    ExtraerProductoDeAlmacen();
+                    break;
+                case 3:
+                    MostrarStockActual();
+                    break;
+                case 4:
+                    MostrarMenuPrincipal();
+                    break;
+                default:
+                    Console.WriteLine("Opción no válida. Inténtelo de nuevo.");
+                    GestionarProductos();
+                    break;
+            }
+
         }
+        //Parte_5
+        static void AgregarProductoEnAlmacen()
+        {
+            Console.Clear();
+            Console.WriteLine("===== Pantalla para Ingresar Producto en Almacén  =====");
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("Seleccione el almacén: ");
 
+            for (int i = 0; i < Almacenes.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {Almacenes[i].Nombre}");
+            }
 
+            int opcionAlmacen = Convert.ToInt32(Console.ReadLine());
+            Almacen almacenSeleccionado = Almacenes[opcionAlmacen - 1];
 
+            Console.WriteLine("Seleccione el producto a ingresar: ");
+
+            for (int i = 0; i < inventario.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {inventario[i].Nombre}");
+            }
+
+            int opcionProducto = Convert.ToInt32(Console.ReadLine());
+            Producto productoSeleccionado = inventario[opcionProducto - 1];
+
+            Console.WriteLine("Ingrese la cantidad a ingresar: ");
+            int cantidad = Convert.ToInt32(Console.ReadLine());
+
+            almacenSeleccionado.AgregarProducto(productoSeleccionado, cantidad);
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("Confirmación: Producto ingresado en el almacén exitosamente.");
+            Console.ReadLine();
+            AgregarYExtraerProductos();
+        }
+        static void ExtraerProductoDeAlmacen()
+        {
+            Console.Clear();
+            Console.WriteLine("===== Pantalla para Extraer Producto de Almacén =====");
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("Seleccione el almacén: ");
+
+            for (int i = 0; i < Almacenes.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {Almacenes[i].Nombre}");
+            }
+
+            int opcionAlmacen = Convert.ToInt32(Console.ReadLine());
+            Almacen almacenSeleccionado = Almacenes[opcionAlmacen - 1];
+
+            Console.WriteLine("Seleccione el producto a extraer: ");
+
+            for (int i = 0; i < inventario.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {inventario[i].Nombre}");
+            }
+
+            int opcionProducto = Convert.ToInt32(Console.ReadLine());
+            Producto productoSeleccionado = inventario[opcionProducto - 1];
+
+            Console.WriteLine("Ingrese la cantidad a extraer: ");
+            int cantidad = Convert.ToInt32(Console.ReadLine());
+
+            almacenSeleccionado.ExtraerProducto(productoSeleccionado, cantidad);
+
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("Confirmación: Producto extraído del almacén exitosamente.");
+            Console.ReadLine();
+            AgregarYExtraerProductos();
+        }
+        static void MostrarStockActual()
+        {
+            Console.Clear();
+            Console.WriteLine("===== Pantalla para Ver Stock Actual =====");
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("Stock Actual en Todos los Almacenes: ");
+            int contadorProducto = 1;
+            foreach (var almacen in Almacenes)
+            {
+                Console.WriteLine($"Almacén: {almacen.Nombre}");
+                Console.WriteLine("Productos:");
+
+                foreach (var productoAlmacenado in almacen.ProductosAlmacenados)
+                {
+                    Console.WriteLine($"Producto {contadorProducto}: " +
+                        $"[{productoAlmacenado.Producto.Nombre}] - " +
+                        $"Almacén: [{almacen.Nombre}] - " +
+                        $"Cantidad: [{productoAlmacenado.Cantidad}]");
+
+                    contadorProducto++;
+                }
+            }
+            Console.WriteLine("--------------------------------------------------");
+            Console.ReadLine();
+            AgregarYExtraerProductos();
+        }
     }
     class Almacen
     {
         public string Nombre { get; }
+        public List<ProductoAlmacenado> ProductosAlmacenados { get; }
 
         public Almacen(string nombre)
         {
             Nombre = nombre;
+            ProductosAlmacenados = new List<ProductoAlmacenado>();
+        }
+        public void AgregarProducto(Producto producto, int cantidad)
+        {
+            ProductoAlmacenado productoAlmacenado = ProductosAlmacenados.Find(p => p.Producto == producto);
+
+            if (productoAlmacenado != null)
+            {
+                productoAlmacenado.Cantidad += cantidad;
+            }
+            else
+            {
+                ProductosAlmacenados.Add(new ProductoAlmacenado(producto, cantidad));
+            }
+        }
+
+        public void ExtraerProducto(Producto producto, int cantidad)
+        {
+            ProductoAlmacenado productoAlmacenado = ProductosAlmacenados.Find(p => p.Producto == producto);
+
+            if (productoAlmacenado != null)
+            {
+                if (productoAlmacenado.Cantidad >= cantidad)
+                {
+                    productoAlmacenado.Cantidad -= cantidad;
+                }
+                else
+                {
+                    Console.WriteLine("No hay suficiente cantidad de este producto en el almacén.");
+
+                }
+            }
+            else
+            {
+                Console.WriteLine("El producto no se encuentra en este almacén.");
+            }
         }
     }
+}
+class ProductoAlmacenado
+{
+    public Producto Producto { get; }
+    public int Cantidad { get; set; }
 
-    class Producto
+    public ProductoAlmacenado(Producto producto, int cantidad)
+    {
+        Producto = producto;
+        Cantidad = cantidad;
+    }
+}
+class Producto
 {
     public string Nombre { get; set; }
     public decimal Precio { get; set; }
@@ -310,5 +473,4 @@ namespace part1_proyectfinal
         Precio = precio;
         Cantidad = cantidad;
     }
-}
 }

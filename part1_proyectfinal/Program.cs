@@ -6,168 +6,168 @@ using System.Threading.Tasks;
 
 namespace part1_proyectfinal
 {
-   class Program
-{
-    static List<Producto> inventario = new List<Producto>();
-
-    static void Main()
+    class Program
     {
-        MostrarMenuPrincipal();
-    }
-
-    static void MostrarMenuPrincipal()
-    {
-        Console.Clear();
-        Console.Write("" +
-                        "==================================================\n" +
-                        "||                                               ||\n" +
-                        "||    Sistema de Inventario \"Mi Tiendita\"        ||\n" +
-                        "||                                               ||\n" +
-                        "==================================================\n" +
-                        "|| 1. Gestionar Productos                        ||\n" +
-                        "|| 2. Gestionar Almacenes                        ||\n" +
-                        "|| 3. Agregar y Extraer Productos                ||\n" +
-                        "==================================================\n" +
-                        "Seleccione una opción y presione Enter: ");
-
-        int opcion = Convert.ToInt32(Console.ReadLine());
-
-        switch (opcion)
+        static List<Producto> inventario = new List<Producto>();
+        static List<Almacen> Almacenes = new List<Almacen>();
+        static void Main()
         {
-            case 1:
-                GestionarProductos();
-                break;
-            case 2:
-                GestionarAlmacenes();
-                break;
-            // Puedes agregar casos para gestionar almacenes y operaciones de productos aquí
-            default:
-                Console.WriteLine("Opción no válida. Inténtelo de nuevo.");
-                Console.ReadKey();
-                MostrarMenuPrincipal();
-                break;
+            MostrarMenuPrincipal();
         }
-    }
 
-    static void GestionarProductos()
-    {
-        Console.Clear();
-        Console.Write("" +
-                        "--------------------------------------------------\n" +                    
-                        "||   Gestionar Productos - Mi Tiendita          ||\n" +
-                        "--------------------------------------------------\n" +
-                        "|| 1. Agregar Producto                          ||\n" +
-                        "|| 2. Eliminar Producto                         ||\n" +
-                        "|| 3. Modificar Producto                        ||\n" +
-                        "|| 4. Mostrar Inventario                        ||\n" +
-                        "|| 5. Volver al Menú Principal                  ||\n" +
-                        "--------------------------------------------------\n" +
-                        "Seleccione una opción: ");
-
-    int opcion = Convert.ToInt32(Console.ReadLine());
-
-        switch (opcion)
+        static void MostrarMenuPrincipal()
         {
-            case 1:
-                AgregarProducto();
-                break;
-            case 2:
-                EliminarProducto();
-                break;
-            case 3:
-                ModificarProducto();
-                break;
-            case 4:
-                MostrarInventario();
-                break;
-            case 5:
-                MostrarMenuPrincipal();
-                break;
-            default:
-                Console.WriteLine("Opción no válida. Inténtelo de nuevo.");
-                Console.ReadKey ();
-                GestionarProductos();
-                break;
+            Console.Clear();
+            Console.Write("" +
+                            "==================================================\n" +
+                            "||                                               ||\n" +
+                            "||    Sistema de Inventario \"Mi Tiendita\"        ||\n" +
+                            "||                                               ||\n" +
+                            "==================================================\n" +
+                            "|| 1. Gestionar Productos                        ||\n" +
+                            "|| 2. Gestionar Almacenes                        ||\n" +
+                            "|| 3. Agregar y Extraer Productos                ||\n" +
+                            "==================================================\n" +
+                            "Seleccione una opción y presione Enter: ");
+
+            int opcion = Convert.ToInt32(Console.ReadLine());
+
+            switch (opcion)
+            {
+                case 1:
+                    GestionarProductos();
+                    break;
+                case 2:
+                    GestionarAlmacenes();
+                    break;
+                case 3: AgregarYExtraerProductos(); break;
+                default:
+                    Console.WriteLine("Opción no válida. Inténtelo de nuevo.");
+                    Console.ReadKey();
+                    MostrarMenuPrincipal();
+                    break;
+            }
         }
-    }
 
-    static void AgregarProducto()
-    {
-        Console.Clear();
-        Console.WriteLine("===== Pantalla para Agregar Producto =====");
-        Console.WriteLine("--------------------------------------------------");
-        Console.WriteLine("Ingrese el nombre del producto: ");
-        string nombre = Console.ReadLine();
-
-        Console.WriteLine("Ingrese el precio del producto: ");
-        decimal precio = Convert.ToDecimal(Console.ReadLine());
-
-        Console.WriteLine("Ingrese la cantidad del producto: ");
-        int cantidad = Convert.ToInt32(Console.ReadLine());
-
-        Producto nuevoProducto = new Producto(nombre, precio, cantidad);
-        inventario.Add(nuevoProducto);
-        Console.WriteLine("--------------------------------------------------");
-        Console.WriteLine("Confirmación: Producto agregado exitosamente.");
-        Console.ReadLine();
-        GestionarProductos();
-    }
-
-    static void EliminarProducto()
-    {
-        Console.Clear();
-        Console.WriteLine("===== Pantalla para Eliminar Producto =====");
-        Console.WriteLine("Ingrese el nombre del producto a eliminar: ");
-        string nombre = Console.ReadLine();
-
-        Producto productoAEliminar = inventario.Find(p => p.Nombre == nombre);
-
-        if (productoAEliminar != null)
+        static void GestionarProductos()
         {
-            inventario.Remove(productoAEliminar);
+            Console.Clear();
+            Console.Write("" +
+                            "--------------------------------------------------\n" +
+                            "||   Gestionar Productos - Mi Tiendita          ||\n" +
+                            "--------------------------------------------------\n" +
+                            "|| 1. Agregar Producto                          ||\n" +
+                            "|| 2. Eliminar Producto                         ||\n" +
+                            "|| 3. Modificar Producto                        ||\n" +
+                            "|| 4. Mostrar Inventario                        ||\n" +
+                            "|| 5. Volver al Menú Principal                  ||\n" +
+                            "--------------------------------------------------\n" +
+                            "Seleccione una opción: ");
+
+            int opcion = Convert.ToInt32(Console.ReadLine());
+
+            switch (opcion)
+            {
+                case 1:
+                    AgregarProducto();
+                    break;
+                case 2:
+                    EliminarProducto();
+                    break;
+                case 3:
+                    ModificarProducto();
+                    break;
+                case 4:
+                    MostrarInventario();
+                    break;
+                case 5:
+                    MostrarMenuPrincipal();
+                    break;
+                default:
+                    Console.WriteLine("Opción no válida. Inténtelo de nuevo.");
+                    Console.ReadKey();
+                    GestionarProductos();
+                    break;
+            }
+        }
+
+        static void AgregarProducto()
+        {
+            Console.Clear();
+            Console.WriteLine("===== Pantalla para Agregar Producto =====");
             Console.WriteLine("--------------------------------------------------");
-            Console.WriteLine("Confirmación: Producto eliminado exitosamente.");
-            Console.ReadLine();
-        }
-        else
-        {
-            Console.WriteLine("Producto no encontrado. Inténtelo de nuevo.");
-        }
+            Console.WriteLine("Ingrese el nombre del producto: ");
+            string nombre = Console.ReadLine();
 
-        GestionarProductos();
-    }
+            Console.WriteLine("Ingrese el precio del producto: ");
+            decimal precio = Convert.ToDecimal(Console.ReadLine());
 
-    static void ModificarProducto()
-    {
-        Console.Clear();
-        Console.WriteLine("===== Pantalla para Modificar Producto =====");
-        Console.WriteLine("Ingrese el nombre del producto a modificar: ");
-        string nombre = Console.ReadLine();
+            Console.WriteLine("Ingrese la cantidad del producto: ");
+            int cantidad = Convert.ToInt32(Console.ReadLine());
 
-        Producto productoAModificar = inventario.Find(p => p.Nombre == nombre);
-
-        if (productoAModificar != null)
-        {
-            Console.WriteLine("Ingrese el nuevo precio: ");
-            decimal nuevoPrecio = Convert.ToDecimal(Console.ReadLine());
-
-            Console.WriteLine("Ingrese la nueva cantidad: ");
-            int nuevaCantidad = Convert.ToInt32(Console.ReadLine());
-
-            productoAModificar.Precio = nuevoPrecio;
-            productoAModificar.Cantidad = nuevaCantidad;
-
+            Producto nuevoProducto = new Producto(nombre, precio, cantidad);
+            inventario.Add(nuevoProducto);
             Console.WriteLine("--------------------------------------------------");
-            Console.WriteLine("Confirmación: Producto modificado exitosamente.");
+            Console.WriteLine("Confirmación: Producto agregado exitosamente.");
             Console.ReadLine();
-        }
-        else
-        {
-            Console.WriteLine("Producto no encontrado. Inténtelo de nuevo.");
+            GestionarProductos();
         }
 
-        GestionarProductos();
-    }
+        static void EliminarProducto()
+        {
+            Console.Clear();
+            Console.WriteLine("===== Pantalla para Eliminar Producto =====");
+            Console.WriteLine("Ingrese el nombre del producto a eliminar: ");
+            string nombre = Console.ReadLine();
+
+            Producto productoAEliminar = inventario.Find(p => p.Nombre == nombre);
+
+            if (productoAEliminar != null)
+            {
+                inventario.Remove(productoAEliminar);
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine("Confirmación: Producto eliminado exitosamente.");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Producto no encontrado. Inténtelo de nuevo.");
+            }
+
+            GestionarProductos();
+        }
+
+        static void ModificarProducto()
+        {
+            Console.Clear();
+            Console.WriteLine("===== Pantalla para Modificar Producto =====");
+            Console.WriteLine("Ingrese el nombre del producto a modificar: ");
+            string nombre = Console.ReadLine();
+
+            Producto productoAModificar = inventario.Find(p => p.Nombre == nombre);
+
+            if (productoAModificar != null)
+            {
+                Console.WriteLine("Ingrese el nuevo precio: ");
+                decimal nuevoPrecio = Convert.ToDecimal(Console.ReadLine());
+
+                Console.WriteLine("Ingrese la nueva cantidad: ");
+                int nuevaCantidad = Convert.ToInt32(Console.ReadLine());
+
+                productoAModificar.Precio = nuevoPrecio;
+                productoAModificar.Cantidad = nuevaCantidad;
+
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine("Confirmación: Producto modificado exitosamente.");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Producto no encontrado. Inténtelo de nuevo.");
+            }
+
+            GestionarProductos();
+        }
 
         //Parte 2
         static void MostrarInventario()
@@ -184,7 +184,7 @@ namespace part1_proyectfinal
             GestionarProductos();
         }
 
-        static List<Almacen> Almacenes = new List<Almacen>();
+        
         static void GestionarAlmacenes()
         {
             Console.Clear();
@@ -205,10 +205,10 @@ namespace part1_proyectfinal
                     AgregarAlmacen();
                     break;
                 case 2:
-                    //EliminarAlmacen();
+                    EliminarAlmacen();
                     break;
                 case 3:
-                    //MostrarAlmacen();
+                    MostrarAlmacen();
                     break;
                 case 4:
                     MostrarMenuPrincipal();
@@ -235,6 +235,58 @@ namespace part1_proyectfinal
             Console.ReadLine();
             GestionarAlmacenes();
         }
+        //Parte 3
+
+        static void EliminarAlmacen()
+        {
+            Console.Clear();
+            Console.Write("===== Pantalla para Eliminar Almacen =====\n" +
+                "------------------------------------------------------\n" +
+                "Ingrese el nombre del almacen a eliminar: \n");
+
+            string nombreAlmacenEliminar = Console.ReadLine();
+            Almacen almacenAEliminar = Almacenes.Find(almacen => almacen.Nombre == nombreAlmacenEliminar);
+
+            if (almacenAEliminar != null)
+            {
+                Almacenes.Remove(almacenAEliminar);
+                Console.Write("-------------------------------------------------\n" +
+                    "Confirmacion: Almacen eliminado exitosamente.");
+            }
+            Console.ReadLine();
+            GestionarAlmacenes();
+        }
+
+        static void MostrarAlmacen()
+        {
+            Console.Clear();
+            Console.WriteLine("===== Pantalla para Mostrar Almacenes =====\n" +
+                "Lista de Almacenes: ");
+
+            for (int i = 0; i < Almacenes.Count; i++)
+            {
+                Console.WriteLine($"Almacen {i + 1}: {Almacenes[i].Nombre}");
+            }
+            Console.ReadLine();
+            GestionarAlmacenes();
+        }
+        static void AgregarYExtraerProductos()
+        {
+            Console.Clear();
+            Console.Write("" +
+                "--------------------------------------------------------\n" +
+                "| |   Agregar y Extraer Productos  - Mi Tiendita     | |\n" +
+                "--------------------------------------------------------\n" +
+                "| | 1. Ingresar Producto en Almacen                  | |\n" +
+                "| | 2. Extraer Producto de Almacen                   | |\n" +
+                "| | 3. Ver Stock Actual                              | |\n" +
+                "| | 4. Volver al Menu Principal                      | |\n" +
+                "--------------------------------------------------------\n" +
+                "Seleccione una opcion: ");
+        }
+
+
+
     }
     class Almacen
     {
